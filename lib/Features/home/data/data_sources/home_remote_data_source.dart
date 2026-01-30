@@ -1,5 +1,8 @@
 import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart';
+import 'package:bookly_app/constants.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
+import '../../../../core/functions/save_local_data_box.dart';
 import '../../../../core/utils/api_service.dart';
 import '../../domain/entities/book_entity.dart';
 
@@ -19,9 +22,11 @@ class HomeRemoteDataSourceImplementation extends HomeRemoteDataSource {
       endPoint: 'volumes?Filtering=free-ebooks&q=Programming',
     );
     List<BookEntity> books = getBooksList(result);
-
+    await saveData(books, kFeaturedBox);
     return books;
   }
+
+ 
 
   @override
   Future<List<BookEntity>> fetchNewestBooks() async {
