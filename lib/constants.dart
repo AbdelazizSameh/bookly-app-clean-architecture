@@ -7,3 +7,5 @@ const kPrimaryColor = Color(0xff100B20);
 const kGTSectraFine = 'GT Sectra Fine Regular';
 
 const kFeaturedBox = 'featuredBox';
+
+const kNewestBox = 'NewestBox';
