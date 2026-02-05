@@ -1,39 +1,61 @@
 import 'package:dio/dio.dart';
 
 abstract class Failure {
-  final String message;
-  const Failure({required this.message});
+  final String errorMessage;
+  const Failure({required this.errorMessage});
 }
 
 class ServerFailure extends Failure {
-  const ServerFailure({required super.message});
+  const ServerFailure({required super.errorMessage});
 
   factory ServerFailure.fromDioException(DioException dioException) {
     switch (dioException.type) {
       case DioExceptionType.connectionTimeout:
-        // TODO: Handle this case.
-        throw UnimplementedError();
+        return ServerFailure(
+          errorMessage: 'Connection timeout with api server.',
+        );
       case DioExceptionType.sendTimeout:
-        // TODO: Handle this case.
-        throw UnimplementedError();
+        return ServerFailure(errorMessage: 'Send timeout with api server.');
       case DioExceptionType.receiveTimeout:
-        // TODO: Handle this case.
-        throw UnimplementedError();
+        return ServerFailure(errorMessage: 'Recieve timeout with api server.');
       case DioExceptionType.badCertificate:
-        // TODO: Handle this case.
-        throw UnimplementedError();
+        return ServerFailure(
+          errorMessage: 'Connection failed. Please try again later.',
+        );
       case DioExceptionType.badResponse:
-        // TODO: Handle this case.
-        throw UnimplementedError();
+        return ServerFailure.fromBadResponse(response: dioException.response!);
       case DioExceptionType.cancel:
-        // TODO: Handle this case.
-        throw UnimplementedError();
+        return ServerFailure(
+          errorMessage: 'Request with api server was canceled.',
+        );
       case DioExceptionType.connectionError:
-        // TODO: Handle this case.
-        throw UnimplementedError();
+        return ServerFailure(
+          errorMessage:
+              'Unable to connect to the server. Please check your internet connection and try again.',
+        );
       case DioExceptionType.unknown:
-        // TODO: Handle this case.
-        throw UnimplementedError();
+        return ServerFailure(
+          errorMessage: 'An unexpected error occurred. Please try again later.',
+        );
+    }
+  }
+  factory ServerFailure.fromBadResponse({required Response response}) {
+    int statusCode = response.statusCode!;
+    dynamic data = response.data;
+    if (statusCode == 400 || statusCode == 401 || statusCode == 403) {
+      return ServerFailure(errorMessage: data['error']['message']);
+    } else if (statusCode == 404) {
+      return ServerFailure(
+        errorMessage: 'Your request not found, Please try again later.',
+      );
+    } else if (statusCode == 500) {
+      return ServerFailure(
+        errorMessage: 'Internal server error, Please try again later.',
+      );
+    } else {
+      return ServerFailure(
+        errorMessage: 'Opps there was an error, Please try again later.',
+      );
     }
   }
 }
