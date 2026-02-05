@@ -1,6 +1,5 @@
 import 'package:bookly_app/Features/home/data/models/book_model/book_model.dart';
 import 'package:bookly_app/constants.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../../../core/functions/save_local_data_box.dart';
 import '../../../../core/utils/api_service.dart';
