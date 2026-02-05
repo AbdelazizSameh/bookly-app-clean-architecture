@@ -3,10 +3,10 @@ import 'package:bookly_app/Features/home/domain/entities/book_entity.dart';
 import 'package:bookly_app/Features/home/domain/use_cases/fetch_newest_books_use_case.dart';
 import 'package:meta/meta.dart';
 
-part 'fetch_newest_books_state.dart';
+part 'newest_books_state.dart';
 
-class FetchNewestBooksCubit extends Cubit<FetchNewestBooksState> {
-  FetchNewestBooksCubit(this.fetchNewestBooksUseCase)
+class NewestBooksCubit extends Cubit<FetchNewestBooksState> {
+  NewestBooksCubit(this.fetchNewestBooksUseCase)
     : super(FetchNewestBooksInitialState());
 
   final FetchNewestBooksUseCase fetchNewestBooksUseCase;
