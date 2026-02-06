@@ -1,3 +1,4 @@
+import 'package:bookly_app/core/functions/simple_bloc_observer.dart';
 import '/Features/home/data/repos/home_repo_implementation.dart';
 import '/Features/home/domain/entities/book_entity.dart';
 import '/Features/home/domain/use_cases/fetch_newest_books_use_case.dart';
@@ -19,9 +20,9 @@ Future<void> main() async {
   await Hive.openBox<BookEntity>(kFeaturedBox);
   await Hive.openBox<BookEntity>(kNewestBox);
   setupServiceLocator();
+  Bloc.observer = SimpleBlocObserver();
   runApp(const BooklyApp());
 }
-
 
 class BooklyApp extends StatelessWidget {
   const BooklyApp({super.key});
