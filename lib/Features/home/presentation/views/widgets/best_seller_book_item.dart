@@ -60,7 +60,7 @@ class BestSellerBookItem extends StatelessWidget {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      const BookRating(),
+                      const BookRating(rating: 0),
                     ],
                   ),
                 ],

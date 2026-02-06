@@ -5,9 +5,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class BookRating extends StatelessWidget {
   const BookRating({
     super.key,
-    this.mainAxisAlignment = MainAxisAlignment.start,
+    this.mainAxisAlignment = MainAxisAlignment.start, required this.rating,
   });
-
+  final num rating;
   final MainAxisAlignment mainAxisAlignment;
 
   @override
@@ -24,10 +24,10 @@ class BookRating extends StatelessWidget {
             size: 14,
           ),
           Text(
-            '4.9',
+            rating.toString(),
             style: Styles.textStyle16.copyWith(fontWeight: FontWeight.bold),
           ),
-          const Text('(2390)', style: Styles.textStyle14),
+          const Text('(0)', style: Styles.textStyle14),
         ],
       ),
     );
